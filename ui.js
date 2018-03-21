@@ -3,7 +3,7 @@ class UI {
     this.profile = document.getElementById('profile');
   }
 
-  // Shows profile
+  // Shows profile in UI
   showProfile(user){
   this.profile.innerHTML= `
     <div class="card card-body mb-3">
@@ -31,5 +31,43 @@ class UI {
     <h3 class="page-heading mb-3">Latest Repos</h3>
     <div id="repos"></div>
   `;
+  }
+
+  // Show alert if no user profile matching typed text
+  showAlert(message, className){
+    // Clear any remaining alerts
+    this.clearAlert();
+    // Create div
+    const div = document.createElement('div');
+    // Add class name to div
+    div.className = className;
+    // Add text to div
+    div.appendChild(document.createTextNode(message));
+    // Get parent node to insert div
+    const container = document.querySelector('.searchContainer');
+    // Get search box
+    const search = document.querySelector('.search');
+    // Insert the alert into UI - 1 param what you want to insert, 2 - what you want to insert before
+    container.insertBefore(div, search);
+
+    // Timeout after 3 seconds
+    setTimeout(() => {
+      this.clearAlert();
+    }, 3000);
+  }
+
+  // Clear alert message when multiple profiles not found
+  clearAlert(){
+    // Get the current alert
+    const currentAlert = document.querySelector('.alert');
+    // Check to see if there is an alert
+    if(currentAlert){
+      currentAlert.remove();
+    }
+  }
+
+  // Clear Profile when there is no text in the input
+  clearProfile(){
+    this.profile.innerHTML ='';
   }
 }
